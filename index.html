@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="aFile" type="file">
+    <img id="anImage" src="" alt="">
+    <input type="number" id="width" placeholder="Enter a width">
+    <input type="number" placeholder="1...100" id="quality">
+    <button id="reset">Reset</button>
+
+    <script>
+        const aFile = document.getElementById("aFile")
+        const anImage = document.getElementById("anImage")
+        const width = document.getElementById("width")
+        const quality = document.getElementById("quality")
+        const reset = document.getElementById("reset")
+
+        aFile.addEventListener("change", (ev) => {
+            if (ev.target.files[0]) onFileChange(ev)
+        })
+
+        reset.addEventListener("click", resetWebsite)
+
+        async function onFileChange(ev) {
+            let target = ev.target.files[0]
+            const img = new Image()
+            const objectURL = URL.createObjectURL(target)
+
+            img.onload = async () => {
+                const width2 = width.value != "" ? width.value : img.width
+                const height = img.height
+                console.log(width2, height);
+                
+                URL.revokeObjectURL(objectURL)
+
+                const fd = new FormData()
+                fd.append("image", target)
+                const fetchURL = new URL("https://imageshrinker.karsonmellott.dev/api/compress")
+                const searchParams = new URLSearchParams()
+                searchParams.set("width", width2)
+                searchParams.set("quality", quality.value)
+                fetchURL.search = searchParams
+
+                const res = await fetch(fetchURL, {
+                    method: "POST",
+                    body: fd
+                })
+
+                if (!res.ok) {
+                    alert(`Server Error: ${res.status}`)
+                }
+
+                const ourFirstBlob = await res.blob()
+                const imageURL = URL.createObjectURL(ourFirstBlob)
+
+                const a = document.createElement("a")
+                a.href = imageURL
+                a.download = "image-resized.jpg"
+                document.body.appendChild(a)
+                // a.click()
+                // a.remove()
+
+                anImage.src = imageURL
+            }
+            img.src = objectURL
+        }
+
+        function resetWebsite() {
+            width.value = ""
+            quality.value = ""
+            aFile.value = ""
+            anImage.src = ""
+        }
+    </script>
+</body>
+</html>
