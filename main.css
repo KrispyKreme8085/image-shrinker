@@ -1,0 +1,169 @@
+body {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    background-color: rgb(15, 163, 186);
+    font-family: Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #c1c9c8;
+    box-shadow: 
+        inset 0px -3px 1px white,
+        0px 3px 5px rgb(7, 86, 98)
+    ;
+    padding: 12px 16px;
+    gap: 10px;
+}
+
+header div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    header div {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    header input[type="file"], header input[type="number"], header select, #uploadBtn, #reset {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    header div {
+        justify-content: center;
+    }
+
+    header input[type="file"], header input[type="number"], header select {
+        flex: 1;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #uploadBtn, #reset {
+        flex: 1;
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+header input[type="file"] {
+    padding: 6px 10px;
+    border: 0;
+    box-shadow: 
+        3px 3px 1px black,
+        inset 3px 3px 1px white
+    ;
+    background: #c1c9c8;
+    cursor: pointer;
+    height: 20px;
+}
+
+header input[type="number"] {
+    padding: 6px 10px;
+    border: 0;
+    box-shadow: 
+        3px 3px 1px black,
+        inset 3px 3px 1px white
+    ;
+    background: #c1c9c8;
+    cursor: pointer;
+    height: 20px;
+}
+
+header select {
+    padding: 6px 10px;
+    border: 0;
+    box-shadow: 
+        3px 3px 1px black,
+        inset 3px 3px 1px white
+    ;
+    background: #c1c9c8;
+    cursor: pointer;
+    height: 30px;
+    width: 100px;
+}
+
+#uploadBtn {
+    padding: 8px 20px;
+    box-shadow: 
+        3px 3px 1px black,
+        inset 3px 3px 1px #96d0ff
+    ;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#reset {
+    padding: 8px 20px;
+    box-shadow: 
+        3px 3px 1px black,
+        inset 3px 3px 1px rgb(255, 152, 152)
+    ;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#imageSection {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
+
+#imageSection div {
+    background-color: #c1c9c8;
+    border: 2px solid #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    gap: 8px;
+}
+
+#imageSection p {
+    font-size: 0.75rem;
+    color: #333;
+}
+
+#imageSection img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    background-color: #000;
+    display: block;
+}
+
+#imageSection a {
+    text-align: center;
+}

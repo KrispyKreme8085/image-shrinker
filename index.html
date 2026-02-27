@@ -4,20 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <input id="aFile" type="file" multiple>
-    <!-- <img id="anImage" src="" alt=""> -->
+    <header>
+        <div>
+            <input type="file" id="aFile" name="filename" multiple>
+            <input type="number" id="width" placeholder="Enter a width">
+            <input type="number" placeholder="1...100" id="quality">
+            <select id="imageType">
+                <option value="image/png">PNG</option>
+                <option value="image/jpeg">JPEG</option>
+                <option value="image/webp">WebP</option>
+            </select>
+        </div>
+        <div>
+            <button id="reset">Reset</button>
+        </div>
+    </header>
     <section id="imageSection"></section>
-    <input type="number" id="width" placeholder="Enter a width">
-    <input type="number" placeholder="1...100" id="quality">
-    <select id="imageType">
-        <option value="image/png">PNG</option>
-        <option value="image/jpeg">JPEG</option>
-        <option value="image/webp">WebP</option>
-    </select>
-    <button id="reset">Reset</button>
-    <section id="downloadArea"></section>
 
     <script>
         const aFile = document.getElementById("aFile")
@@ -26,7 +31,6 @@
         const quality = document.getElementById("quality")
         const reset = document.getElementById("reset")
         const imageSection = document.getElementById("imageSection")
-        const downloadArea = document.getElementById("downloadArea")
         const imageType = document.getElementById("imageType")
 
 
@@ -81,15 +85,14 @@
                 const a = document.createElement("a")
                 a.href = imageURL
                 a.download = file.name + "-resized" + returnFileType(contentTypeFromServer)
-                a.innerText = "Download" + file.name + "-resized" + returnFileType(contentTypeFromServer) 
-                downloadArea.appendChild(a)
+                a.innerText = "Download " + file.name + "-resized" + returnFileType(contentTypeFromServer)
 
                 const newSection = document.createElement("div")
                 newSection.innerHTML = `
                     <img src="${imageURL}" alt="${file.name + "-resized" + returnFileType(contentTypeFromServer)}"></img>
                     <p>Original Size: ${originalSizeInMB} MB // Compressed Size: ${compressedSizeInMB} MB</p>
                 `
-
+                newSection.appendChild(a)
                 imageSection.appendChild(newSection)
             }
             img.src = objectURL
@@ -112,7 +115,6 @@
             quality.value = ""
             aFile.value = ""
             imageSection.innerHTML = ""
-            downloadArea.innerHTML = ""
         }
     </script>
 </body>
